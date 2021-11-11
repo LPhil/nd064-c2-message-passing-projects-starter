@@ -11,6 +11,7 @@ spec:
     storage: 256Mi
   accessModes:
     - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
   hostPath:
     path: "/mnt/data"
 ---
@@ -58,7 +59,7 @@ spec:
       containers:
         - name: postgres
           image: postgis/postgis:12-2.5-alpine
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
           env:
