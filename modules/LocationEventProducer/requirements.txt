@@ -1,0 +1,14 @@
+Flask==2.0.2
+Jinja2==3.0.3
+MarkupSafe==2.0.1
+Werkzeug==2.0.2
+click==8.0.3
+gevent==21.8.0
+greenlet==1.1.2
+grpcio==1.41.1
+itsdangerous==2.0.1
+kafka-python==2.0.2
+protobuf==3.19.1
+six==1.16.0
+zope.event==4.5.0
+zope.interface==5.4.0

@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: udaconnect
+  name: locationevent-producer
+  labels:
+    service: locationevent-producer
+spec:
+  ports:
+  - name: "flask-5000"
+    port: 5000
+    #targetPort: 5000
+    nodePort: 30011
+  - name: "grpc-5005"
+    port: 5005
+    #targetPort: 5005
+    nodePort: 30010
+  selector:
+    service: locationevent-producer
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: udaconnect
+  labels:
+    service: locationevent-producer
+  name: locationevent-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: locationevent-producer
+  template:
+    metadata:
+      labels:
+        service: locationevent-producer
+    spec:
+      containers:
+      - image: docker.io/pufe97/locationevent-producer:latest
+        name: locationevent-producer
+        imagePullPolicy: Always
+        env:
+        - name: KAFKA_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: kafka-env
+              key: KAFKA_HOST
+        - name: KAFKA_TOPIC
+          valueFrom:
+            configMapKeyRef:
+              name: kafka-env
+              key: KAFKA_TOPIC
+        resources: { }
+      restartPolicy: Always
