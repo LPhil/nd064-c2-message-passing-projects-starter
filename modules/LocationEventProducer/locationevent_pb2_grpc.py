@@ -19,6 +19,11 @@ class LocationServiceStub(object):
                 request_serializer=locationevent__pb2.LocationEvent.SerializeToString,
                 response_deserializer=locationevent__pb2.LocationEvent.FromString,
                 )
+        self.Get = channel.unary_unary(
+                '/LocationService/Get',
+                request_serializer=locationevent__pb2.Empty.SerializeToString,
+                response_deserializer=locationevent__pb2.LocationEvent.FromString,
+                )
 
 
 class LocationServiceServicer(object):
@@ -30,12 +35,23 @@ class LocationServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def Get(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_LocationServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Create': grpc.unary_unary_rpc_method_handler(
                     servicer.Create,
                     request_deserializer=locationevent__pb2.LocationEvent.FromString,
+                    response_serializer=locationevent__pb2.LocationEvent.SerializeToString,
+            ),
+            'Get': grpc.unary_unary_rpc_method_handler(
+                    servicer.Get,
+                    request_deserializer=locationevent__pb2.Empty.FromString,
                     response_serializer=locationevent__pb2.LocationEvent.SerializeToString,
             ),
     }
@@ -61,6 +77,23 @@ class LocationService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/LocationService/Create',
             locationevent__pb2.LocationEvent.SerializeToString,
+            locationevent__pb2.LocationEvent.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Get(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/LocationService/Get',
+            locationevent__pb2.Empty.SerializeToString,
             locationevent__pb2.LocationEvent.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
