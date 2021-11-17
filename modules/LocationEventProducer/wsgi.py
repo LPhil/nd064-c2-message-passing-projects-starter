@@ -1,11 +1,11 @@
 import grpc, logging
 
+from concurrent import futures
 from flask import Flask
 from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler
 
-from concurrent import futures
-from LocationEventProducer import create_app
+from LocationProducer import create_app
 
 # Setup flask
 app = Flask(__name__)

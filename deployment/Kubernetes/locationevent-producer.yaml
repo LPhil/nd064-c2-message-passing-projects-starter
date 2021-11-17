@@ -45,11 +45,17 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: kafka-env
-              key: KAFKA_HOST
+              key: KAFKA_PRODUSER_HOST
         - name: KAFKA_TOPIC
           valueFrom:
             configMapKeyRef:
               name: kafka-env
               key: KAFKA_TOPIC
-        resources: { }
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
       restartPolicy: Always

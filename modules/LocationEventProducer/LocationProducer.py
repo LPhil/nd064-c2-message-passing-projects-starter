@@ -23,21 +23,22 @@ class LocationEventProducer(locationevent_pb2_grpc.LocationServiceServicer):
             "user_id": request.user_id,
             "latitude": request.latitude,
             "longitude": request.longitude,
-            "creation_time": request.creation_time
+            "creation_time": datetime.fromtimestamp(request.creation_time)\
+                                .replace(microsecond=0).timestamp()
         }
 
         producer.send(KAFKA_TOPIC, json.dumps(kafka_request).encode())
         producer.flush()
 
-        logger.info("Forward request Kafka Broker: " + json.dumps(kafka_request))
+        logger.info("Forward request for topic '{}' to kafka-broker: {} ".format(KAFKA_TOPIC, json.dumps(kafka_request)))
         return locationevent_pb2.LocationEvent(**kafka_request)
 
     def Get(self, request, context):
         return locationevent_pb2.LocationEvent(
             user_id = 42,
-            latitude = -127,
-            longitude = 250,
-            creation_time = str(datetime.now())
+            latitude = -1237.923,
+            longitude = 2850.2791,
+            creation_time = datetime.now().timestamp()
         )
 
 

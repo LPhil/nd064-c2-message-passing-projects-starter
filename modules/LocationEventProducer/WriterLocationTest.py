@@ -1,6 +1,5 @@
 import grpc
-import locationevent_pb2
-import locationevent_pb2_grpc
+import locationevent_pb2, locationevent_pb2_grpc
 
 from datetime import datetime
 
@@ -18,10 +17,10 @@ print(response)
 
 # Update this with desired payload
 locaction = locationevent_pb2.LocationEvent(
-    user_id = 25,
-    latitude = 130,
-    longitude = -240,
-    creation_time = str(datetime.now())
+    user_id = 6,
+    latitude = 23424.52342,
+    longitude = -453234.6343,
+    creation_time = datetime.now().timestamp()
 )
 
 print("Sending sample payload...")

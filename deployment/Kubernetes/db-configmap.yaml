@@ -16,4 +16,5 @@ metadata:
   name: kafka-env
 data:
   KAFKA_TOPIC: "locations"
-  KAFKA_HOST: "kafka-broker-0.kafka-broker-headless.udaconnect.svc.cluster.local:9092"
+  KAFKA_CONSUMER_HOST: "kafka-broker.udaconnect:9092"
+  KAFKA_PRODUSER_HOST: "kafka-broker-0.kafka-broker-headless.udaconnect:9092"

@@ -2,9 +2,9 @@ syntax = "proto3";
 
 message LocationEvent {
   int32 user_id = 1;
-  sint32 latitude = 2;
-  sint32 longitude = 3;
-  string creation_time = 4;
+  double latitude = 2;
+  double longitude = 3;
+  double creation_time = 4;
 }
 
 message Empty { }

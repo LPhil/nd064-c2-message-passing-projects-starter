@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: udaconnect
+  labels:
+    service: locationevent-consumer
+  name: locationevent-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: locationevent-consumer
+  template:
+    metadata:
+      labels:
+        service: locationevent-consumer
+    spec:
+      containers:
+      - image: docker.io/pufe97/locationevent-consumer:latest
+        name: locationevent-consumer
+        imagePullPolicy: Always
+        env:
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: db-env
+              key: DB_USERNAME
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_PASSWORD
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: db-env
+              key: DB_NAME
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: db-env
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: db-env
+              key: DB_PORT
+        - name: KAFKA_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: kafka-env
+              key: KAFKA_CONSUMER_HOST
+        - name: KAFKA_TOPIC
+          valueFrom:
+            configMapKeyRef:
+              name: kafka-env
+              key: KAFKA_TOPIC
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+      restartPolicy: Always
