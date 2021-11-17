@@ -29,7 +29,7 @@ class LocationEventProducer(locationevent_pb2_grpc.LocationServiceServicer):
         producer.send(KAFKA_TOPIC, json.dumps(kafka_request).encode())
         producer.flush()
 
-        logger.info("Forward to Kafka Broker: " + json.dumps(kafka_request))
+        logger.info("Forward request Kafka Broker: " + json.dumps(kafka_request))
         return locationevent_pb2.LocationEvent(**kafka_request)
 
     def Get(self, request, context):

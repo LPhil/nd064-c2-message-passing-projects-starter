@@ -8,12 +8,11 @@ from datetime import datetime
 Sample implementation of a writer that can be used to write messages to gRPC.
 """
 
-channel = grpc.insecure_channel("localhost:30010")
-#channel = grpc.insecure_channel("localhost:5005")
+#channel = grpc.insecure_channel("localhost:30010")
+channel = grpc.insecure_channel("localhost:5005")
 stub = locationevent_pb2_grpc.LocationServiceStub(channel)
 
-
-print("Sending sample payload...")
+print("Receiving sample payload...")
 response = stub.Get(locationevent_pb2.Empty())
 print(response)
 
