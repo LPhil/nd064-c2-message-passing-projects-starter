@@ -3,18 +3,16 @@
 [ ! -d ".venv" ] && echo "Creating .venv" && virtualenv ".venv"
 source .venv/bin/activate
 
+[ ! -f "requirements.txt" ] && pipreqs --ignore .venv
 pip install -r requirements.txt && \
- pip install --upgrade pip
+ pip freeze | sort -f | tee requirements.txt
 
-pip freeze | sort -f | tee requirements.txt
-
-#pip install -r requirements.txt
 
 # --no-cache
-docker build -t pufe97/locationevent-consumer:latest . && \
- docker push pufe97/locationevent-consumer:latest
+docker build -t pufe97/locations-app-api:latest . && \
+ docker push pufe97/locations-app-api:latest
 
-kubectl rollout restart deployment locationevent-consumer && \
+kubectl rollout restart deployment locations-app-api && \
   kubectl get pods -o wide --watch
 
 deactivate

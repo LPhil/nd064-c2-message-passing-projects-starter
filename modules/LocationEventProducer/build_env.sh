@@ -8,7 +8,7 @@ source .venv/bin/activate
 pip install -r requirements.txt && \
  pip install --upgrade pip
 
-pip freeze | sort | tee requirements.txt
+pip freeze | sort -f | tee requirements.txt
 
 #pip install -r requirements.txt
 

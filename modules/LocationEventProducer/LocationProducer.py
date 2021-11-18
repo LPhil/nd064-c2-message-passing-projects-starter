@@ -19,12 +19,12 @@ class LocationEventProducer(locationevent_pb2_grpc.LocationServiceServicer):
     def Create(self, request, context):
         logger.debug("Message received")
 
+        creation_time = datetime.fromtimestamp(request.creation_time)
         kafka_request = {
             "user_id": request.user_id,
             "latitude": request.latitude,
             "longitude": request.longitude,
-            "creation_time": datetime.fromtimestamp(request.creation_time)\
-                                .replace(microsecond=0).timestamp()
+            "creation_time": creation_time.replace(microsecond=0).timestamp()
         }
 
         producer.send(KAFKA_TOPIC, json.dumps(kafka_request).encode())

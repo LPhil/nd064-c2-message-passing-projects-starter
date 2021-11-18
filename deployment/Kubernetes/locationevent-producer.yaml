@@ -14,7 +14,6 @@ spec:
   - name: "grpc-5005"
     port: 5005
     #targetPort: 5005
-    nodePort: 30010
   selector:
     service: locationevent-producer
   type: NodePort
