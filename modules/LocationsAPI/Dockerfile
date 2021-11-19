@@ -6,7 +6,7 @@ WORKDIR /install
 
 COPY requirements.txt /requirements.txt
 
-RUN apk add build-base geos-dev postgresql-dev
+RUN apk add build-base geos-dev libffi-dev postgresql-dev
 #gcc geos libc-dev musl-dev linux-headers libffi-dev postgresql-dev
 #RUN apk add --no-cache build-base musl-dev linux-headers libffi-dev postgresql-dev geos-dev
 #RUN apk add build-base musl-dev linux-headers postgresql-dev geos-dev

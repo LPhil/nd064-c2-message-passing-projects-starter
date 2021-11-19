@@ -7,9 +7,8 @@ WORKDIR /install
 COPY requirements.txt /requirements.txt
 
 RUN apk add build-base postgresql-dev
-RUN pip install --upgrade pip && \
-    pip install --prefix=/install -r /requirements.txt
-
+RUN pip install --prefix=/install -r /requirements.txt && \
+    pip install --upgrade pip
 
 FROM base
 

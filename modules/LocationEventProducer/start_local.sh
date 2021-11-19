@@ -10,12 +10,14 @@ pip install -r requirements.txt && \
  pip freeze | sort -f | tee requirements.txt
 
 
-# --no-cache
-docker build -t pufe97/locationevent-producer:latest . && \
- docker push pufe97/locationevent-producer:latest
+export DB_USERNAME=ct_admin
+export DB_PASSWORD=wowimsosecure
+export DB_NAME=geoconnections
 
-kubectl rollout restart deployment locationevent-producer && \
-  kubectl get pods -o wide --watch
+export DB_HOST=localhost
+export DB_PORT=30005
+
+#kubectl port-forward svc/postgres 5432:5432 &
+python wsgi.py
 
 deactivate
-docker rmi -f $(docker images --filter "dangling=true" -q --no-trunc) # cleanup dangling images

@@ -1,14 +1,15 @@
+import logging
 from app.udaconnect.models import Location
 from app.udaconnect.schemas import LocationSchema
-
 from app.udaconnect.services import LocationService
+
 from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
+from werkzeug.exceptions import abort
+
 
 api = Namespace("Locations", description="Locations API Microservice.")  # noqa
-
-# TODO: This needs better exception handling
 
 @api.route("/locations")
 @api.route("/locations/<location_id>")
@@ -17,11 +18,17 @@ class LocationResource(Resource):
     @accepts(schema=LocationSchema)
     @responds(schema=LocationSchema)
     def post(self) -> Location:
-        request.get_json()
-        location: Location = LocationService.create(request.get_json())
-        return location
+        try:
+            request.get_json()
+            location: Location = LocationService.create(request.get_json())
+            return location
+        except:
+            abort(500)
 
     @responds(schema=LocationSchema)
     def get(self, location_id) -> Location:
-        location: Location = LocationService.retrieve(location_id)
-        return location
+        try:
+            location: Location = LocationService.retrieve(location_id)
+            return location
+        except:
+            abort(500)

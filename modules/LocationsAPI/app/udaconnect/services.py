@@ -6,9 +6,9 @@ from app.udaconnect.models import Location
 from app.udaconnect.schemas import LocationSchema
 from geoalchemy2.functions import ST_Point
 
-logging.basicConfig(level=logging.WARNING)
+# Setup logging and misc
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("Locations API")
-
 
 class LocationService:
     @staticmethod
