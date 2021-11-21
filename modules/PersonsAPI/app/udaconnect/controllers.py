@@ -10,9 +10,6 @@ from werkzeug.exceptions import abort
 
 api = Namespace("Persons", description="Persons API Microservice.")  # noqa
 
-
-# TODO: This needs better exception handling
-
 @api.route("/persons")
 class PersonsResource(Resource):
     @accepts(schema=PersonSchema)

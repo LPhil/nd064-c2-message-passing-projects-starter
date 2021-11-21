@@ -9,10 +9,10 @@ pip install -r requirements.txt && \
 
 
 # --no-cache
-docker build -t pufe97/locations-app-api:latest . && \
- docker push pufe97/locations-app-api:latest
+docker build -t pufe97/locations-api:latest . && \
+ docker push pufe97/locations-api:latest
 
-kubectl rollout restart deployment locations-app-api && \
+kubectl rollout restart deployment locations-api && \
   kubectl get pods -o wide --watch
 
 deactivate

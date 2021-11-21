@@ -16,11 +16,12 @@ coverage.xml
 *.cover
 *.log
 .git
-.vscode
 .mypy_cache
 .pytest_cache
 .hypothesis
 #
+.DS_Store
 .venv
+.vscode
 *.sh
 *.proto
