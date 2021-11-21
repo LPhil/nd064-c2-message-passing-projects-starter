@@ -1,6 +1,6 @@
 #!/bin/sh
 
-python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. locationevent.proto
+python3 -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ./proto/locationevent.proto
 
 [ ! -d ".venv" ] && echo "Creating .venv" && virtualenv ".venv"
 source .venv/bin/activate

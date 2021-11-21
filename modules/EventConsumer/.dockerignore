@@ -20,6 +20,8 @@ coverage.xml
 .pytest_cache
 .hypothesis
 #
-build_env.sh
+.DS_Store
 .venv
+*.sh
 *.proto
+app/WriteDBTest.py

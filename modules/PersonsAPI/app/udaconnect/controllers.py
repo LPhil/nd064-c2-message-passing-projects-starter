@@ -8,7 +8,6 @@ from flask_restx import Namespace, Resource
 from typing import List
 from werkzeug.exceptions import abort
 
-DATE_FORMAT = "%Y-%m-%d"
 api = Namespace("Persons", description="Persons API Microservice.")  # noqa
 
 

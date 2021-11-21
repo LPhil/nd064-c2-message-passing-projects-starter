@@ -6,7 +6,7 @@ WORKDIR /install
 
 COPY requirements.txt /requirements.txt
 
-RUN apk add build-base postgresql-dev
+RUN apk add build-base postgresql-dev libffi-dev
 RUN pip install --prefix=/install -r /requirements.txt && \
     pip install --upgrade pip
 

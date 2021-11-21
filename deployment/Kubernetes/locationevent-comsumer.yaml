@@ -13,6 +13,7 @@ spec:
   template:
     metadata:
       labels:
+        apply: logging
         service: locationevent-consumer
     spec:
       containers:

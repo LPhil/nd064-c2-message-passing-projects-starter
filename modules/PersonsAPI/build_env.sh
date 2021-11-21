@@ -9,10 +9,10 @@ pip install -r requirements.txt && \
 
 
 # --no-cache
-docker build -t pufe97/persons-app-api:latest . && \
- docker push pufe97/persons-app-api:latest
+docker build -t pufe97/persons-api:latest . && \
+ docker push pufe97/persons-api:latest
 
-kubectl rollout restart deployment persons-app-api && \
+kubectl rollout restart deployment persons-api && \
   kubectl get pods -o wide --watch
 
 deactivate

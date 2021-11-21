@@ -6,6 +6,7 @@ from sqlalchemy import create_engine, exc
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Setup Kafka producer
 KAFKA_TOPIC = os.environ["KAFKA_TOPIC"]
@@ -21,7 +22,6 @@ consumer = KafkaConsumer(KAFKA_TOPIC, bootstrap_servers=KAFKA_HOST)
 
 def dbsave(location):
     try:
-        logging.info(f"postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
         engine = create_engine(f"postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}", echo=False)
         conn = engine.connect()
 
@@ -32,24 +32,25 @@ def dbsave(location):
         insert = "INSERT INTO location (person_id, coordinate, creation_time) VALUES ({}, ST_Point({}, {}), ('{}'))" \
             .format(user_id, latitude, longitude, datetime.fromtimestamp(creation_time).isoformat())
 
-        logging.info(insert)
         conn.execute(insert)
+        logging.debug(insert)
 
     except exc.SQLAlchemyError as err:
-        logging.error(err)
+        logger.error(err)
 
 
 def start_consumer():
     try:
-        logging.info("start_consumer called")
+        logger.info("start_consumer called")
         for location in consumer:
             message = location.value.decode('utf-8')
-            logging.debug('consuming {}'.format(message))
+            logger.debug('consuming {}'.format(message))
+
             location_message = json.loads(message)
-            logging.info('message {}'.format(location_message))
+            logger.info('message {}'.format(location_message))
             dbsave(location_message)
 
     except KeyboardInterrupt:
-        logging.warning("Detected signal exit. Exiting application ...")
+        logger.warning("Detected signal exit. Exiting application ...")
 
     consumer.close()

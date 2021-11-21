@@ -1,5 +1,5 @@
 import json, os, logging
-import locationevent_pb2, locationevent_pb2_grpc
+from proto import locationevent_pb2, locationevent_pb2_grpc
 
 from datetime import datetime
 from flask import jsonify
@@ -13,7 +13,6 @@ logger = logging.getLogger(__name__)
 KAFKA_TOPIC = os.environ["KAFKA_TOPIC"]
 KAFKA_HOST = os.environ["KAFKA_HOST"]
 producer = KafkaProducer(bootstrap_servers=KAFKA_HOST)
-
 
 class LocationEventProducer(locationevent_pb2_grpc.LocationServiceServicer):
     def Create(self, request, context):

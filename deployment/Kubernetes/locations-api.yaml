@@ -2,17 +2,16 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: udaconnect
-  name: persons-svc-api
+  name: locations
   labels:
-    service: persons-svc-api
+    service: locations
 spec:
   ports:
-  - name: "flask-5000"
-    port: 5000
+  - port: 5000
     targetPort: 5000
-    nodePort: 30006
+    nodePort: 30002
   selector:
-    app: persons-app-api
+    app: locations-api
     ver: v1
   type: NodePort
 ---
@@ -21,22 +20,23 @@ kind: Deployment
 metadata:
   namespace: udaconnect
   labels:
-    app: persons-app-api
-  name: persons-app-api
+    app: locations-api
+  name: locations-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: persons-app-api
+      app: locations-api
   template:
     metadata:
       labels:
-        app: persons-app-api
+        apply: logging
+        app: locations-api
         ver: v1
     spec:
       containers:
-      - image: pufe97/persons-app-api:latest
-        name: persons-app-api
+      - image: pufe97/locations-api:latest
+        name: locations-api
         imagePullPolicy: Always
         env:
         - name: DB_USERNAME

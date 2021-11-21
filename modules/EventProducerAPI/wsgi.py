@@ -4,14 +4,12 @@ from concurrent import futures
 from flask import Flask
 from gevent import pywsgi
 
-from LocationProducer import create_app
+from app.LocationProducer import create_app
 
 # Setup flask
 app = Flask(__name__)
 # Setup gRPC server
 grpc_server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
-#Setup logging
-#logging.basicConfig(level=logging.WARNING)
 
 if __name__ == "__main__":
     create_app(app, grpc_server)
@@ -22,4 +20,3 @@ if __name__ == "__main__":
     # grpc_server.wait_for_termination()
     http_server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
     http_server.serve_forever()
-    # app.run(debug=False, host="0.0.0.0")
