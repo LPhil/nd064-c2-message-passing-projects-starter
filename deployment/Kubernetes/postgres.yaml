@@ -44,7 +44,8 @@ spec:
   selector:
     app: postgres
   ports:
-   - port: 5432
+    - port: 5432
+      nodePort: 30050
 ---
 apiVersion: apps/v1
 kind: Deployment
