@@ -7,7 +7,9 @@ source .venv/bin/activate
 pip install -r requirements.txt && \
  pip freeze | grep -v file: | sort -f | tee requirements.txt
 
-mkdir dist > /dev/null 2>&1 && cp -r ../UdaDB/dist .
+rmdir dist > /dev/null 2>&1
+mkdir dist > /dev/null 2>&1
+cp -rf ../UdaDB/dist .
 
 # --no-cache
 docker build -t pufe97/persons-api:latest . && \

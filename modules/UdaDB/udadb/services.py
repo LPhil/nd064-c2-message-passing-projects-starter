@@ -11,7 +11,7 @@ from udadb.connector import db
 
 
 logging.basicConfig(level=logging.WARNING)
-logger = logging.getLogger("udadb-services")
+logger = logging.getLogger("UdaDB-backend")
 
 class ConnectionService:
     @staticmethod
