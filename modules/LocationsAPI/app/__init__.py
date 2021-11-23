@@ -1,9 +1,15 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_restx import Api
-from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
+from udadb import db, Location, LocationSchema # noqa
+
+
+def register_routes(api, app, root="api"):
+    from app.controllers import api as udaconnect_api
+
+    api.add_namespace(udaconnect_api, path=f"/{root}")
+
 
 def create_app(env=None):
     from app.config import config_by_name

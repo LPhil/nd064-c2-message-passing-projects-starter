@@ -1,12 +1,11 @@
-from app.udaconnect.models import Person
-from app.udaconnect.schemas import PersonSchema
-
-from app.udaconnect.services import PersonService
 from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 from typing import List
 from werkzeug.exceptions import abort
+
+from udadb import Person, PersonSchema, PersonService
+
 
 api = Namespace("Persons", description="Persons API Microservice.")  # noqa
 
