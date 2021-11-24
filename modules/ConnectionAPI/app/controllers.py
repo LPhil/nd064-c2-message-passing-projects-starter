@@ -3,15 +3,13 @@ from flask import request
 from flask_accepts import responds
 from flask_restx import Namespace, Resource
 from typing import Optional
-from werkzeug.exceptions import abort
+from werkzeug.exceptions import abort, HTTPException
 
 from udadb import Connection, ConnectionSchema, ConnectionService
-
 
 DATE_FORMAT = "%Y-%m-%d"
 
 api = Namespace("Connections", description="Connections API Microservice.")  # noqa
-
 
 @api.route("/connection/<person_id>")
 @api.param("start_date", "Lower bound of date range", _in="query")
@@ -33,6 +31,13 @@ class ConnectionDataResource(Resource):
                 end_date=end_date,
                 meters=distance,
             )
+            if not results:
+                abort(404)
+
             return results
-        except:
-            abort(500)
+
+        except Exception as e:
+            if isinstance(e, HTTPException):
+                abort(e.code)
+            else:
+                abort(500)

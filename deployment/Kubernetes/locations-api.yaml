@@ -30,7 +30,7 @@ spec:
   template:
     metadata:
       labels:
-        apply: logging
+        log: services
         app: locations-api
         ver: v1
     spec:

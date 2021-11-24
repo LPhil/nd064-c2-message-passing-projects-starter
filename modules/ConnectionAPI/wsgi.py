@@ -1,7 +1,9 @@
-import os
+import os, logging
 
 from gevent import pywsgi
 from app import create_app
+
+logging.basicConfig(level=logging.INFO)
 
 app = create_app(os.getenv("FLASK_ENV") or "test")
 if __name__ == "__main__":

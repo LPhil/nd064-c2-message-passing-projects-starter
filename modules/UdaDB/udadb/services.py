@@ -10,8 +10,8 @@ from udadb.schemas import ConnectionSchema, LocationSchema, PersonSchema
 from udadb.connector import db
 
 
-logging.basicConfig(level=logging.WARNING)
-logger = logging.getLogger("UdaDB-backend")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class ConnectionService:
     @staticmethod

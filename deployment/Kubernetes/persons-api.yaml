@@ -30,7 +30,7 @@ spec:
   template:
     metadata:
       labels:
-        apply: logging
+        log: services
         app: persons-api
         ver: v1
     spec:

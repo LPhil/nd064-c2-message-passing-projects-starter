@@ -34,7 +34,7 @@ spec:
   template:
     metadata:
       labels:
-        apply: logging
+        log: services
         service: locationevent-producer
     spec:
       containers:

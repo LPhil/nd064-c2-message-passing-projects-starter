@@ -21,7 +21,7 @@ coverage.xml
 .hypothesis
 #
 .DS_Stores
-.venv
+.venv*
 .vscode
 *.sh
 *.proto

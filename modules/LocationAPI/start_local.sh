@@ -7,6 +7,6 @@ export DB_NAME=geoconnections
 export DB_HOST=localhost
 export DB_PORT=30050
 
-[ -d ".venv" ] && source .venv/bin/activate
+[ -d ".venv_local" ] && source .venv_local/bin/activate
 
 python wsgi.py

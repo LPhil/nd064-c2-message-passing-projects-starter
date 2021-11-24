@@ -1,0 +1,117 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/LPhil/UdaConnect/1.0.0
+info:
+  description: This is a simple API
+  version: "1.0.0"
+  title: ConnectionsAPI Udaconnect
+  contact:
+    email: this@is-mycompany.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: everyone
+    description: Operations available to everyone
+paths:
+  /api/connection/{person_id}:
+    get:
+      tags:
+        - everyone
+      operationId: get_connection_data_resource
+      description: |
+        By passing in the appropriate options, you can retrieve
+        all connections by a person
+      parameters:
+        - in: path
+          name: person_id
+          description: required to retreive all location records
+          required: true
+          schema:
+            type: integer
+        - in: query
+          description: Proximity to a given user in meters
+          name: distance
+          schema:
+            type: integer
+        - in: query
+          description: Upper bound of date range
+          name: end_date
+          schema:
+            type: string
+            format: date
+        - in: query
+          description: Lower bound of date range
+          name: start_date
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connection'
+        '404':
+          description: requested URL was not found
+        '500':
+          description: internal server error
+components:
+  schemas:
+    Connection:
+      type: object
+      properties:
+        person:
+          $ref: '#/components/schemas/Person'
+        location:
+          $ref: '#/components/schemas/Location'
+    Person:
+      type: object
+      required:
+        - id
+        - first_name
+        - last_name
+        - company_name
+      properties:
+        id:
+          type: integer
+          example: 7
+        first_name:
+          type: string
+          example: 'Elon'
+        last_name:
+          type: string
+          example: 'Musk'
+        company_name:
+          type: string
+          example: 'Tesla'
+    Location:
+      type: object
+      required:
+        - id
+        - person_id
+        - latitude
+        - longitude
+        - creation_time
+      properties:
+        id:
+          type: integer
+          example: 42
+        person_id:
+          type: integer
+          example: 6
+        latitude:
+          type: string
+          example: '52.39238'
+        longitude:
+          type: string
+          example: '13.79095'
+        creation_time:
+          type: string
+          format: date-time
+          example: '2022-11-24T10:37:06'

@@ -2,10 +2,9 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 from typing import List
-from werkzeug.exceptions import abort
+from werkzeug.exceptions import abort, HTTPException
 
 from udadb import Person, PersonSchema, PersonService
-
 
 api = Namespace("Persons", description="Persons API Microservice.")  # noqa
 
@@ -36,6 +35,12 @@ class PersonResource(Resource):
     def get(self, person_id) -> Person:
         try:
             person: Person = PersonService.retrieve(person_id)
+            if person is None:
+                abort(404)
             return person
-        except:
-            abort(500)
+
+        except Exception as e:
+            if isinstance(e, HTTPException):
+                abort(e.code)
+            else:
+                abort(500)
