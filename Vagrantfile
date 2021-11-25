@@ -31,9 +31,11 @@ Vagrant.configure("2") do |config|
       end
     master.vm.provision "shell", inline: <<-SHELL
       sudo zypper refresh
-      sudo zypper --non-interactive install bzip2
+      sudo zypper --non-interactive install bzip2 chrony
+      sudo zypper --non-interactive install chrony
       sudo zypper --non-interactive install etcd
-      sudo zypper --non-interactive install apparmor-parser
+      sudo zypper --non-interactive install apparmor-parser apparmor-profiles
+      sudo systemctl enable chronyd.service && sudo systemctl start chronyd.service
       curl -sfL https://get.k3s.io | sh -
     SHELL
   end

@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: udaconnect-legacy
+  name: udaconnect-app
   labels:
     service: udaconnect-app
-  name: udaconnect-app
 spec:
   ports:
   - name: "3000"
@@ -17,9 +18,11 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    service: udaconnect-app
+  namespace: udaconnect-legacy
   name: udaconnect-app
+  labels:
+    name: udaconnect-app
+    service: udaconnect-app
 spec:
   replicas: 1
   selector:

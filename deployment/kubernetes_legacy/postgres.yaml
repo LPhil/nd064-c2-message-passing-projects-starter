@@ -1,7 +1,8 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: postgres-volume
+  namespace: udaconnect-legacy
+  name: postgres-volume-legacy
   labels:
     type: local
     app: postgres
@@ -11,14 +12,14 @@ spec:
     storage: 256Mi
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Delete
+  persistentVolumeReclaimPolicy: Recycle
   hostPath:
     path: "/mnt/data"
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres-pv-claim
+  name: postgres-pv-claim-legacy
   labels:
     app: postgres
 spec:
@@ -81,7 +82,8 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgresdb
+          resources: { }
       volumes:
         - name: postgresdb
           persistentVolumeClaim:
-            claimName: postgres-pv-claim
+            claimName: postgres-pv-claim-legacy
