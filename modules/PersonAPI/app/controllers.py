@@ -17,16 +17,24 @@ class PersonsResource(Resource):
             payload = request.get_json()
             new_person: Person = PersonService.create(payload)
             return new_person
-        except:
-            abort(500)
+
+        except Exception as e:
+            if isinstance(e, HTTPException):
+                abort(e.code)
+            else:
+                abort(500)
 
     @responds(schema=PersonSchema(many=True))
     def get(self) -> List[Person]:
         try:
             persons: List[Person] = PersonService.retrieve_all()
             return persons
-        except:
-            abort(500)
+
+        except Exception as e:
+            if isinstance(e, HTTPException):
+                abort(e.code)
+            else:
+                abort(500)
 
 @api.route("/persons/<person_id>")
 @api.param("person_id", "Unique ID for a given Person", _in="query")
@@ -35,8 +43,6 @@ class PersonResource(Resource):
     def get(self, person_id) -> Person:
         try:
             person: Person = PersonService.retrieve(person_id)
-            if person is None:
-                abort(404)
             return person
 
         except Exception as e:

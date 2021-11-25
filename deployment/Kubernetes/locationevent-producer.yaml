@@ -34,7 +34,7 @@ spec:
   template:
     metadata:
       labels:
-        log: services
+        log: events
         service: locationevent-producer
     spec:
       containers:
@@ -52,6 +52,11 @@ spec:
             configMapKeyRef:
               name: kafka-env
               key: KAFKA_TOPIC
+        - name: PERSONS_URI
+          valueFrom:
+            configMapKeyRef:
+              name: api-env
+              key: PERSONS_URI
         resources:
           requests:
             cpu: 100m

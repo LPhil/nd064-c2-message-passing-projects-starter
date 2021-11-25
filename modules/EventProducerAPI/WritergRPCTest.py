@@ -17,9 +17,9 @@ print(response)
 
 # Update this with desired payload
 locaction = locationevent_pb2.LocationEvent(
-    user_id = 6,
-    latitude = 23424.52342,
-    longitude = -453234.6343,
+    user_id = 5,
+    latitude = 27.52342,
+    longitude = -25.6343,
     creation_time = datetime.now().timestamp()
 )
 

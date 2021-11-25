@@ -31,9 +31,6 @@ class ConnectionDataResource(Resource):
                 end_date=end_date,
                 meters=distance,
             )
-            if not results:
-                abort(404)
-
             return results
 
         except Exception as e:

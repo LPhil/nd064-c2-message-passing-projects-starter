@@ -1,7 +1,7 @@
 from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
-from werkzeug.exceptions import abort
+from werkzeug.exceptions import abort, HTTPException
 
 from udadb import LocationService, LocationSchema, Location
 
@@ -19,13 +19,21 @@ class LocationResource(Resource):
             request.get_json()
             location: Location = LocationService.create(request.get_json())
             return location
-        except:
-            abort(500)
+
+        except Exception as e:
+            if isinstance(e, HTTPException):
+                abort(e.code)
+            else:
+                abort(500)
 
     @responds(schema=LocationSchema)
     def get(self, location_id) -> Location:
         try:
             location: Location = LocationService.retrieve(location_id)
             return location
-        except:
-            abort(500)
+
+        except Exception as e:
+            if isinstance(e, HTTPException):
+                abort(e.code)
+            else:
+                abort(500)

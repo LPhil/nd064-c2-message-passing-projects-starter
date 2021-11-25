@@ -2,9 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: udaconnect
-  name: locations
+  name: locations-api
   labels:
-    service: locations
+    service: locations-api
 spec:
   ports:
   - port: 5000
@@ -30,7 +30,7 @@ spec:
   template:
     metadata:
       labels:
-        log: services
+        log: apis
         app: locations-api
         ver: v1
     spec:

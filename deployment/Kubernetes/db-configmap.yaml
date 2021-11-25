@@ -18,3 +18,12 @@ data:
   KAFKA_TOPIC: "locations"
   KAFKA_CONSUMER_HOST: "kafka-broker.udaconnect:9092"
   KAFKA_PRODUSER_HOST: "kafka-broker-0.kafka-broker-headless.udaconnect:9092"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: udaconnect
+  name: api-env
+data:
+  # To disable persons checking in Producer, set PERSONS_URI: ""
+  PERSONS_URI: "http://persons-api.udaconnect:5000/api/persons"

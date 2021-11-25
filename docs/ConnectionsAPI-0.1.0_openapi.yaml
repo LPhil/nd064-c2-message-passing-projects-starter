@@ -4,11 +4,11 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/LPhil/UdaConnect/1.0.0
 info:
-  description: This is a simple API
-  version: "1.0.0"
+  description: Swagger API for  UdaConnect Connection API
+  version: "0.1.0"
   title: ConnectionsAPI Udaconnect
   contact:
-    email: this@is-mycompany.com
+    email: this@mycompany.com
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
