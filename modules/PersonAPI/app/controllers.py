@@ -43,6 +43,8 @@ class PersonResource(Resource):
     def get(self, person_id) -> Person:
         try:
             person: Person = PersonService.retrieve(person_id)
+            if person is None:
+                abort(404)
             return person
 
         except Exception as e:
