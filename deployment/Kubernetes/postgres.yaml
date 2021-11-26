@@ -13,7 +13,7 @@ spec:
   accessModes:
     - ReadWriteMany
   #persistentVolumeReclaimPolicy: Recycle
-  persistentVolumeReclaimPolicy: Delete
+  #persistentVolumeReclaimPolicy: Delete
   hostPath:
     path: "/mnt/data"
 ---

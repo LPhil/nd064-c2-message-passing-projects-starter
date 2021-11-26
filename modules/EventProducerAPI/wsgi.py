@@ -9,7 +9,7 @@ from app.LocationProducer import create_app
 # Setup flask
 app = Flask(__name__)
 # Setup gRPC server
-grpc_server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
+grpc_server = grpc.server(futures.ThreadPoolExecutor()) # 3.8: Default value of max_workers is changed to min(32, os.cpu_count() + 4).
 
 if __name__ == "__main__":
     create_app(app, grpc_server)
