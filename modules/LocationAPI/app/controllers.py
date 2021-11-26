@@ -11,6 +11,8 @@ api = Namespace("Locations", description="Locations API Microservice.")  # noqa
 @api.route("/locations")
 @api.route("/locations/<location_id>")
 @api.param("location_id", "Unique ID for a given Location", _in="query")
+@api.doc(responses={200: 'Success'})
+@api.doc(responses={500: 'Internal Server Error'})
 class LocationResource(Resource):
     @accepts(schema=LocationSchema)
     @responds(schema=LocationSchema)

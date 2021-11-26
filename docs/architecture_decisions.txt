@@ -3,10 +3,11 @@ location data in order to identify people who are in the immediate geographical 
 
 To handle high load of location user data, a microservice (EnventProducer) was created which provides
 a gRPC interface. The incoming location data from EvenetProducer will be queued into the MessageBroker
-(Kafka) and the Micoservice (EventConsumer) will writes them into the database. In POC, this is currently
-done via SQL, but could be decoupled from the database via further abstraction and may submitted to
-Microservice (LocationsAPI) via gRPC. To retrieve personal data from Microservice (PersonsAPI),
-this could also be done via gRPC instead of REST, later.
+(Kafka) and the Micoservice (EventConsumer) will writes them into the database.
+In POC, this is currently done via SQL, but could be decoupled from the database via further abstraction
+and may submitted to Microservice (LocationsAPI) via gRPC.
+The Microservice (EventProducerAPI) has the possibility to check the <user_id> existens and
+can reject the request in case of an 404 from PersonsAPI.
 
 The monolith was divided into three microservices and equipped with the existing RESTful APIs.
 The database interface was separated out and outsourced to a separate module (UdaDB), so that all

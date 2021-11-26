@@ -9,6 +9,8 @@ from udadb import Person, PersonSchema, PersonService
 api = Namespace("Persons", description="Persons API Microservice.")  # noqa
 
 @api.route("/persons")
+@api.doc(responses={200: 'Success'})
+@api.doc(responses={500: 'Internal Server Error'})
 class PersonsResource(Resource):
     @accepts(schema=PersonSchema)
     @responds(schema=PersonSchema)
@@ -38,6 +40,9 @@ class PersonsResource(Resource):
 
 @api.route("/persons/<person_id>")
 @api.param("person_id", "Unique ID for a given Person", _in="query")
+@api.doc(responses={200: 'Success'})
+@api.doc(responses={404: '<person_id> not found'})
+@api.doc(responses={500: 'Internal Server Error'})
 class PersonResource(Resource):
     @responds(schema=PersonSchema)
     def get(self, person_id) -> Person:
