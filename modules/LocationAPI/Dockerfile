@@ -5,11 +5,9 @@ RUN mkdir /install
 WORKDIR /install
 
 COPY requirements.txt /requirements.txt
-COPY dist/UdaDB-* /
 
-RUN apk add build-base geos-dev libffi-dev postgresql-dev
+RUN apk add git build-base geos-dev libffi-dev postgresql-dev
 RUN pip install --prefix=/install -r /requirements.txt && \
-    pip install --prefix=/install /UdaDB-* && \
     pip install --upgrade pip
 
 FROM base

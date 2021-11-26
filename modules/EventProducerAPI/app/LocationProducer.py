@@ -27,7 +27,7 @@ class LocationEventProducer(locationevent_pb2_grpc.LocationServiceServicer):
                 request_url = f'{PERSONS_URI}/{request.user_id}'
                 logger.debug(f'Request URL {request_url}')
                 r = requests.get(request_url)
-                if not r:
+                if r.status_code == 404:
                     logger.error("{} [{}]".format(request_url, r.status_code))
                     context.set_code(grpc.StatusCode.NOT_FOUND)
                     context.set_details(r.text)

@@ -16,6 +16,7 @@ psycopg2-binary==2.9.2
 pyrsistent==0.18.0
 pytz==2021.3
 six==1.16.0
+UdaDB @ git+https://github.com/LPhil/UdaDB.git
 Werkzeug==2.0.2
 zope.event==4.5.0
 zope.interface==5.4.0
