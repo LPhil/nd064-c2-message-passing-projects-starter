@@ -26,8 +26,8 @@ def dbsave(location):
         conn = engine.connect()
 
         user_id = int(location["user_id"])
-        latitude, longitude = int(location["latitude"]), int(location["longitude"])
-        creation_time = location["creation_time"]
+        latitude, longitude = float(location["latitude"]), float(location["longitude"])
+        creation_time = float(location["creation_time"])
 
         insert = "INSERT INTO location (person_id, coordinate, creation_time) VALUES ({}, ST_Point({}, {}), ('{}'))" \
             .format(user_id, latitude, longitude, datetime.fromtimestamp(creation_time).isoformat())
