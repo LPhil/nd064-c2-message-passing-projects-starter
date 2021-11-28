@@ -42,13 +42,14 @@ def dbsave(location):
 def start_consumer():
     try:
         logger.info("start_consumer called")
-        for location in consumer:
-            message = location.value.decode('utf-8')
-            logger.debug('consuming {}'.format(message))
+        while True:
+            for location in consumer:
+                message = location.value.decode('utf-8')
+                logger.debug('consuming {}'.format(message))
 
-            location_message = json.loads(message)
-            logger.info('message {}'.format(location_message))
-            dbsave(location_message)
+                location_message = json.loads(message)
+                logger.info('message {}'.format(location_message))
+                dbsave(location_message)
 
     except KeyboardInterrupt:
         logger.warning("Detected signal exit. Exiting application ...")
